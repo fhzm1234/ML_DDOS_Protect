@@ -1,0 +1,153 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link href = "../static/css/custom.css" rel="stylesheet" type="text/css">
+
+		<title>DDOS Protect</title>
+
+		<script type="text/javascript">
+			function do_ajax_ADD(){
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function(){
+					if(this.readyState == 4 && this.status == 200){
+						document.getElementById('result').innerHTML = "Success ADD IP Ban";
+						document.getElementById('iplist').innerHTML = this.responseText;
+					} else{
+						document.getElementById('result').innerHTML = "Error";
+					}
+				}
+
+				xhttp.open('POST', '/', true);
+				xhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+				xhttp.send("ip_black=" + "A"+document.getElementById('ip_black').value);
+			}
+			function ValidateIPaddress_ADD(inputText) {
+    			var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+    			if (inputText.value.match(ipformat)) {
+        			do_ajax_ADD();
+    			} else {
+        			alert("입력하신 값은 IP형식이 아닙니다.");
+        			return;
+    			}
+			}
+
+			function do_ajax_DEL(){
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function(){
+					if(this.readyState == 4 && this.status == 200){
+						document.getElementById('result').innerHTML = "Success Remove IP Ban";
+						document.getElementById('iplist').innerHTML = this.responseText;
+					} else{
+						document.getElementById('result').innerHTML = "Error";
+					}
+				}
+
+				xhttp.open('POST', '/', true);
+				xhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+				xhttp.send("ip_black=" + "D"+document.getElementById('ip_black').value);
+			}
+			function ValidateIPaddress_DEL(inputText) {
+    			var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+    			if (inputText.value.match(ipformat)) {
+        			do_ajax_DEL();
+    			} else {
+        			alert("입력하신 값은 IP형식이 아닙니다.");
+        			return;
+    			}
+			}
+
+
+			function ValidatePort_ADD(inputText) {
+    			var ptformat = /^(6553[0-5]|655[0-2][0-9]\d|65[0-4](\d){2}|6[0-4](\d){3}|[1-5](\d){4}|[1-9](\d){0,3})$/;
+    			if (inputText.value.match(ptformat)) {
+        			ajax_Port_DROP();
+    			} else {
+        			alert("입력하신 값은 포트형식이 아닙니다.");
+        			return;
+    			}
+			}
+			
+			function ajax_Port_DROP(){
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function(){
+					if(this.readyState == 4 && this.status == 200){
+						document.getElementById('result2').innerHTML = "Success ADD Port Ban";
+						document.getElementById('portlist').innerHTML = this.responseText;
+					} else{
+						document.getElementById('result2').innerHTML = "Error";
+					}
+				}
+
+				xhttp.open('POST', '/', true);
+				xhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+				xhttp.send("port_black=" + "C"+document.getElementById('port_black').value);
+			}
+
+
+			function ValidatePort_Remove(inputText) {
+    			var ptformat = /^(6553[0-5]|655[0-2][0-9]\d|65[0-4](\d){2}|6[0-4](\d){3}|[1-5](\d){4}|[1-9](\d){0,3})$/;
+    			if (inputText.value.match(ptformat)) {
+        			ajax_Port_Remove();
+    			} else {
+        			alert("입력하신 값은 포트형식이 아닙니다.");
+        			return;
+    			}
+			}
+
+			function ajax_Port_Remove(){
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function(){
+					if(this.readyState == 4 && this.status == 200){
+						document.getElementById('result2').innerHTML = "Success Remove Port Ban";
+						document.getElementById('portlist').innerHTML = this.responseText;
+					} else{
+						document.getElementById('result2').innerHTML = "Error";
+					}
+				}
+
+				xhttp.open('POST', '/', true);
+				xhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+				xhttp.send("port_black=" + "B"+document.getElementById('port_black').value);
+			}
+
+		</script>
+	</head>
+	<body>
+
+		<div class ="row">
+			<h1 align="center"> DDOS Protection </h1>
+		</div>
+
+		<div id = "s_left">
+		<form onsubmit="return false;" name="ipaddress" action="/" method="post">
+			<input type="text" placeholder="IP Address" , id="ip_black" value=""/>
+			<button class="button gray" type="button", id="ip-add", onclick="ValidateIPaddress_ADD(document.ipaddress.ip_black);">DROP</button>
+			<button class="button gray" type="button", id="ip-del", onclick="ValidateIPaddress_DEL(document.ipaddress.ip_black);">Remove</button>
+			<div style="font-weight:bold; font-size:1.0em;" id="result"></div>
+			<br>
+			<br>
+			<br>
+			<div class = "box" style="margin-left:10px; font-weight:bold; font-size:1.0em; line-height:1.0em; overflow:auto; width:40vmin; height:50vmin; test-align: center;" id="iplist"></div>
+		</form>
+		</div>
+
+
+		<div id = "s_left">
+		<form onsubmit="return false;" name="port" action="/" method="post">
+			<input type="text" placeholder="Port" , id="port_black" value=""/>
+			<button class="button gray" type="button", id="port-add", onclick="ValidatePort_ADD(document.port.port_black);">DROP</button>
+			<button class="button gray" type="button", id="port-del", onclick="ValidatePort_Remove(document.port.port_black);">Remove</button>
+			<div style="font-weight:bold; font-size:1.0em;" id="result2"></div>
+			<br>
+			<br>
+			<br>
+			<div class = "box" style="margin-left:10px; font-weight:bold; font-size:1.0em; line-height:1.0em; overflow:auto; width:40vmin; height:50vmin; test-align: center;" id="portlist"></div>
+		</form>
+		</div>
+
+		
+		<div id = "s_frame" style ="position:fixed; right:0px; bottom:0px; top:55px;">
+			<iframe name="iframe1" id="iframe1" src="/log" height="100%" width="100%" allowTransparency='true' frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling="auto" vspace=0><iframe>
+		</div>
+	</body>
+</html>
