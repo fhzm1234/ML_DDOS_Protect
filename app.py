@@ -52,7 +52,7 @@ def training():
 
     x_train, x_test, y_train, y_test = train_test_split(X, Y, stratify=Y, test_size=0.2, random_state=42)
 
-    forest = RandomForestClassifier(n_estimators=30, random_state=2, max_depth=5)
+    forest = RandomForestClassifier()
     traing = forest.fit(x_train, y_train)
 
     print("Training Set Accuracy: {:.3f}".format(forest.score(x_train, y_train)))
